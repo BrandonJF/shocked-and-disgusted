@@ -4,14 +4,16 @@ Website: https://EliElrom.com
 License: MIT License
 Component: src/component/MainMenu/MainMenu.tsx
 */
-
-import React from 'react'
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import './MainMenu.scss'
 
 import Container from '@material-ui/core/Container';
 import { Box, Button, Color, Grid, PropTypes, Typography } from '@material-ui/core';
+import { setNotification } from '../../features/notification/notificationSlice';
+import { AppDispatch } from '../../redux/store';
 
-export default class MainMenu extends React.PureComponent<IMainMenuProps, IMainMenuState> {
+class MainMenu extends React.PureComponent<IMainMenuProps, IMainMenuState> {
 
   constructor(props: IMainMenuProps) {
     super(props);
@@ -67,11 +69,17 @@ export default class MainMenu extends React.PureComponent<IMainMenuProps, IMainM
           </Typography>
         </Grid>
 
+        <Grid item xs={12}>
+          <Typography variant="h6" component="h1" gutterBottom>
+            {this.props.notification}
+          </Typography>
+        </Grid>
+
         {
           this.state.buttons.map((item, index) => (
             <Grid item xs={8} md={4}>
               <Box my={2}>
-              <Button variant="contained" fullWidth={true} color={this.getColorForPosition(index)}>{item}</Button>
+              <Button onClick={() => this.props.setNotification(`Button ${index} pressed`)} variant="contained" fullWidth={true} color={this.getColorForPosition(index)}>{item}</Button>
               </Box>
             </Grid>
           ))
@@ -86,7 +94,9 @@ export default class MainMenu extends React.PureComponent<IMainMenuProps, IMainM
 }
 
 interface IMainMenuProps {
-  // TODO
+  onButtonClicked: () => void
+  setNotification: (t: string) => void
+  notification: string
 }
 
 interface IMainMenuState {
@@ -97,3 +107,20 @@ interface IMainMenuState {
 interface IMainMenuSnapshot {
   // TODO
 }
+
+const mapDispatchToProps = (dispatch: AppDispatch) => {
+  return {
+    setNotification: (t: string) =>  { 
+      return dispatch(setNotification(t));
+    }
+  }
+  
+}
+const mapStateToProps = (storeState: any) => {
+  return {
+    notification: storeState.notification.notification.description
+  }
+}
+
+// export default connect(mapStateToProps, mapDispatchToProps)(MainMenu)
+export default connect(mapStateToProps, mapDispatchToProps)(MainMenu)
