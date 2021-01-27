@@ -2,7 +2,7 @@ import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 
 
 async function fetchDonationDataAPI() {
-    const apiUrl = 'https://gist.githubusercontent.com/BrandonJF/48201d989e223c4651a880d88c139d25/raw/82c0e997c68683a3507e2cc02a308fa038b393a0/donation-data.json';
+    const apiUrl = 'https://gist.githubusercontent.com/BrandonJF/48201d989e223c4651a880d88c139d25/raw/';
     const response = await fetch(apiUrl);
     const data = await response.json();
     console.log('This is your data', data);
