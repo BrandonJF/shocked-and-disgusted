@@ -2,7 +2,7 @@
 
 import { configureStore, combineReducers, createAction, createReducer, createSlice } from '@reduxjs/toolkit'
 import moneyReducer, {addMoney} from './moneySlice'
-import notificationReducer, {setNotification} from '../features/notification/notificationSlice'
+import notificationReducer, {fetchDonationData} from '../features/notification/notificationSlice'
 import { type } from 'os'
 
 const increment = createAction('INCREMENT')

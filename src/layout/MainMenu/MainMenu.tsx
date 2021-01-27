@@ -10,7 +10,7 @@ import './MainMenu.scss'
 
 import Container from '@material-ui/core/Container';
 import { Box, Button, Color, Grid, PropTypes, Typography } from '@material-ui/core';
-import { setNotification } from '../../features/notification/notificationSlice';
+import { fetchDonationData } from '../../features/notification/notificationSlice';
 import { AppDispatch } from '../../redux/store';
 
 class MainMenu extends React.PureComponent<IMainMenuProps, IMainMenuState> {
@@ -79,7 +79,7 @@ class MainMenu extends React.PureComponent<IMainMenuProps, IMainMenuState> {
           this.state.buttons.map((item, index) => (
             <Grid item xs={8} md={4}>
               <Box my={2}>
-              <Button onClick={() => this.props.setNotification(`Button ${index} pressed`)} variant="contained" fullWidth={true} color={this.getColorForPosition(index)}>{item}</Button>
+                <Button onClick={() => this.props.setNotification(`Button ${index} pressed`)} variant="contained" fullWidth={true} color={this.getColorForPosition(index)}>{item}</Button>
               </Box>
             </Grid>
           ))
@@ -110,11 +110,11 @@ interface IMainMenuSnapshot {
 
 const mapDispatchToProps = (dispatch: AppDispatch) => {
   return {
-    setNotification: (t: string) =>  { 
-      return dispatch(setNotification(t));
+    setNotification: (t: string) => {
+      return dispatch(fetchDonationData());
     }
   }
-  
+
 }
 const mapStateToProps = (storeState: any) => {
   return {
